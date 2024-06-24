@@ -1,8 +1,8 @@
 # Essay-Scoring-Automated-2.0
------------*Essay Scoring Project*-----------
+-----------Essay Scoring Project-----------
 This project involves developing and evaluating models for automated essay scoring. It utilizes various machine learning models, including LSTM, GRU, and CNN, to predict essay scores based on text input.
 
------------*Project Structure*-----------
+-----------Project Structure-----------
 /home/javitrucas/essay_scoring
 │
 ├── data
@@ -38,12 +38,12 @@ This project involves developing and evaluating models for automated essay scori
 │
 └── README.txt
 
------------*Directory Contents*-----------
+-----------Directory Contents-----------
 data/: Contains the datasets and preprocessed data files.
 models/: Contains the trained models.
 scripts/: Contains the Python scripts for preprocessing data, training models, and evaluating models.
 
------------*Scripts*-----------
+-----------Scripts-----------
 preprocess.py
 This script handles data preprocessing. It cleans the text, performs synonym replacement for data augmentation, tokenizes the text, and saves the preprocessed data.
 
@@ -56,7 +56,7 @@ This script trains three different types of models (LSTM, GRU, CNN) on the prepr
 evaluate.py
 This script evaluates the trained models using various metrics and visualizes the results.
 
------------*Usage*-----------
+-----------Usage-----------
 1. Data Preprocessing
 Run the preprocess.py script to clean and preprocess the data:
 
@@ -93,7 +93,7 @@ The evaluation script generates several plots:
 	-Confusion Matrix
 	-Bar charts comparing MAE, MSE, R2 Score, Variance, Max Error, Median Absolute Error, 	Precision, Recall, F1 Score, and Correctly Rated Essays Percentage across different models.
 
------------*Dependencies*-----------
+-----------Dependencies-----------
 Python 3.x
 NumPy
 pandas
