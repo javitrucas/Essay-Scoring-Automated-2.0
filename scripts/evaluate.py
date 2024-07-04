@@ -12,16 +12,15 @@ import os
 # Añadir el directorio del proyecto al PYTHONPATH
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-
-# Load the validation data
-X_val_pad = np.load('/home/javitrucas/essay_scoring/data/X_val_pad.npy')
-y_val = np.load('/home/javitrucas/essay_scoring/data/y_val.npy')
-essay_texts = np.load('/home/javitrucas/essay_scoring/data/essay_texts.npy', allow_pickle=True)
-
 # Directorio base del proyecto
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-# Load the saved models using absolute paths
+# Load the validation data
+X_val_pad = np.load(os.path.join(BASE_DIR, 'data/X_val_pad.npy'))
+y_val = np.load(os.path.join(BASE_DIR, 'data/y_val.npy'))
+essay_texts = np.load(os.path.join(BASE_DIR, 'data/essay_texts.npy'), allow_pickle=True)
+
+# Load the saved models using relative paths
 lstm_model = load_model(os.path.join(BASE_DIR, 'models/lstm_model.keras'), custom_objects={'custom_loss': custom_loss})
 gru_model = load_model(os.path.join(BASE_DIR, 'models/gru_model.keras'), custom_objects={'custom_loss': custom_loss})
 cnn_model = load_model(os.path.join(BASE_DIR, 'models/cnn_model.keras'), custom_objects={'custom_loss': custom_loss})
