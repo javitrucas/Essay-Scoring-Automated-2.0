@@ -6,16 +6,26 @@ import spacy
 import pandas as pd
 from custom_losses import custom_loss  # Import the custom_loss function
 
+import sys
+import os
+
+# Añadir el directorio del proyecto al PYTHONPATH
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+
 # Load the validation data
 X_val_pad = np.load('/home/javitrucas/essay_scoring/data/X_val_pad.npy')
 y_val = np.load('/home/javitrucas/essay_scoring/data/y_val.npy')
 essay_texts = np.load('/home/javitrucas/essay_scoring/data/essay_texts.npy', allow_pickle=True)
 
-# Load the saved models
-lstm_model = load_model('/home/javitrucas/essay_scoring/models/lstm_model.keras', custom_objects={'custom_loss': custom_loss})
-gru_model = load_model('/home/javitrucas/essay_scoring/models/gru_model.keras', custom_objects={'custom_loss': custom_loss})
-cnn_model = load_model('/home/javitrucas/essay_scoring/models/cnn_model.keras', custom_objects={'custom_loss': custom_loss})
-hybrid_model = load_model('/home/javitrucas/essay_scoring/models/hybrid_model.keras', custom_objects={'custom_loss': custom_loss})  # Load the hybrid model
+# Directorio base del proyecto
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+# Load the saved models using absolute paths
+lstm_model = load_model(os.path.join(BASE_DIR, 'models/lstm_model.keras'), custom_objects={'custom_loss': custom_loss})
+gru_model = load_model(os.path.join(BASE_DIR, 'models/gru_model.keras'), custom_objects={'custom_loss': custom_loss})
+cnn_model = load_model(os.path.join(BASE_DIR, 'models/cnn_model.keras'), custom_objects={'custom_loss': custom_loss})
+hybrid_model = load_model(os.path.join(BASE_DIR, 'models/hybrid_model.keras'), custom_objects={'custom_loss': custom_loss})
 
 # Load Spacy model
 nlp = spacy.load('en_core_web_sm')
