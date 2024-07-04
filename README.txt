@@ -26,11 +26,11 @@ This project involves developing and evaluating models for automated essay scori
 │   ├── essay_scoring_model.h5
 │   ├── gru_model.keras
 │   ├── lstm_model.keras
+│   ├── hybrid_model.keras
 │
 ├── scripts
 │   ├── custom_losses.py
 │   ├── evaluate.py
-│   ├── generate_test_data.py
 │   ├── preprocess.py
 │   ├── __pycache__
 │   └── train_model.py
@@ -56,15 +56,12 @@ evaluate.py
 This script evaluates the trained models using various metrics and visualizes the results.
 
 -----------*Usage*-----------
-1. Data Preprocessing
-Run the preprocess.py script to clean and preprocess the data:
+1. Data
+Download the data from the following link and place it in the `data` directory:
+[Drive Link](https://drive.google.com/file/d/1pJB50b7hfRXVIWJc5OuOOee-FdZSAlYO/view?usp=drive_link)
 
-python scripts/preprocess.py
-
-2. Train Models
-Run the train_model.py script to train the models:
-
-python scripts/train_model.py
+2. Execution
+The data is already preprocessed and the models are pre-trained. You can directly use the scripts to evaluate the models without any preprocessing or training steps.
 
 3. Evaluate Models
 Run the evaluate.py script to evaluate the trained models:
@@ -73,24 +70,21 @@ python scripts/evaluate.py
 
 Evaluation Metrics
 The models are evaluated using the following metrics:
-
-	-Mean Absolute Error (MAE)
-	-Mean Squared Error (MSE)
-	-R2 Score
-	-Variance
-	-Max Error
-	-Median Absolute Error
-	-Precision
-	-Recall
-	-F1 Score
-	-Percentage of Correctly Rated Essays
+- Mean Absolute Error (MAE)
+- Mean Squared Error (MSE)
+- R2 Score
+- Variance
+- Max Error
+- Median Absolute Error
+- Precision
+- Recall
+- F1 Score
+- Percentage of Correctly Rated Essays
 
 The evaluation script generates several plots:
-
-	-True vs. Predicted Values
-	-Bar charts comparing MAE, MSE, R2 Score, Variance, Max Error, Median Absolute Error, 	Precision, Recall, F1 Score, and Correctly Rated Essays Percentage across different models.
-
------------*Dependencies*-----------
+- True vs. Predicted Values
+- Bar charts comparing MAE, MSE, R2 Score, Variance, Max Error, Median Absolute Error, Precision, Recall, F1 Score, and Correctly Rated Essays Percentage across different models.
+-----------Dependencies-----------
 Python 3.x
 NumPy
 pandas
@@ -98,4 +92,3 @@ scikit-learn
 NLTK
 TensorFlow
 Matplotlib
-Ensure all dependencies are installed before running the scripts.
