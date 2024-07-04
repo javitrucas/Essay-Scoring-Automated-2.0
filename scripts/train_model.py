@@ -5,14 +5,23 @@ from tensorflow.keras.layers import Embedding, LSTM, GRU, Conv1D, GlobalMaxPooli
 from tensorflow.keras.preprocessing.text import tokenizer_from_json
 from custom_losses import custom_loss
 
+import sys
+import os
+
+# Añadir el directorio del proyecto al PYTHONPATH
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+# Directorio base del proyecto
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
 # Load preprocessed data
-X_train_pad = np.load('/home/javitrucas/essay_scoring/data/X_train_pad.npy')
-X_val_pad = np.load('/home/javitrucas/essay_scoring/data/X_val_pad.npy')
-y_train = np.load('/home/javitrucas/essay_scoring/data/y_train.npy')
-y_val = np.load('/home/javitrucas/essay_scoring/data/y_val.npy')
+X_train_pad = np.load(os.path.join(BASE_DIR, 'data/X_train_pad.npy'))
+X_val_pad = np.load(os.path.join(BASE_DIR, 'data/X_val_pad.npy'))
+y_train = np.load(os.path.join(BASE_DIR, 'data/y_train.npy'))
+y_val = np.load(os.path.join(BASE_DIR, 'data/y_val.npy'))
 
 # Load saved tokenizer
-tokenizer_path = '/home/javitrucas/essay_scoring/data/tokenizer.json'
+tokenizer_path = os.path.join(BASE_DIR, 'data/tokenizer.json')
 with open(tokenizer_path, 'r') as f:
     tokenizer_json = f.read()
     tokenizer = tokenizer_from_json(tokenizer_json)
@@ -23,7 +32,8 @@ input_dim = len(tokenizer.word_index) + 1
 
 # Load GloVe embeddings
 embedding_index = {}
-with open('/home/javitrucas/essay_scoring/data/glove.6B.100d.txt', encoding="utf8") as f:
+glove_path = os.path.join(BASE_DIR, 'data/glove.6B.100d.txt')
+with open(glove_path, encoding="utf8") as f:
     for line in f:
         values = line.split()
         word = values[0]
@@ -110,9 +120,9 @@ def build_random_model(input_dim, maxlen):
 def train_and_evaluate_model(model, X_train, y_train, X_val, y_val, model_name):
     model.compile(loss=custom_loss, optimizer='adam', metrics=['mae'])
     history = model.fit(X_train, y_train, batch_size=64, epochs=10, validation_data=(X_val, y_val))
-    model.save(f'/home/javitrucas/essay_scoring/models/{model_name}.keras')
+    model_path = os.path.join(BASE_DIR, f'models/{model_name}.keras')
+    model.save(model_path)
     return history
-
 
 # Build LSTM model
 lstm_model = build_lstm_model(input_dim, maxlen, embedding_matrix)
@@ -128,4 +138,4 @@ history_cnn = train_and_evaluate_model(cnn_model, X_train_pad, y_train, X_val_pa
 
 # Build Hybrid model
 hybrid_model = build_hybrid_model(input_dim, maxlen, embedding_matrix)
-history_hybrid = train_and_evaluate_model(hybrid_model, X_train_pad, y_train, X_val_pad, y_val, 'hybrid_model') 
+history_hybrid = train_and_evaluate_model(hybrid_model, X_train_pad, y_train, X_val_pad, y_val, 'hybrid_model')
